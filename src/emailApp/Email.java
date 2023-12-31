@@ -2,6 +2,7 @@ package emailApp;
 
 import java.util.Scanner;
 
+
 // This is where we make our email objects
 public class Email {
     /*
@@ -24,12 +25,31 @@ public class Email {
         System.out.println("Email is created: " + this.firstName + " " + this.lastName);
 
         this.department = setDepartment();
-        System.out.print(this.department);
+        System.out.print("Department: " + this.department);
     }
-    // Call a method that is asking for the department
+
+    // Set a random password method
+    private String passwordSet(int length) {
+        String passwordSet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890@#$%&!";
+        char[] password = new char[length];
+
+        for (int i=0; i<length; i++){
+            // Make random number in range of length passwordSet
+            int rand = (int) (Math.random() * passwordSet.length());
+            // Insert that random number
+            password[i] = passwordSet.charAt(rand);
+
+
+
+        }
+        return new String(password);
+    }
+
+
+    // Set the department
     // Ask for department
     private String setDepartment() {
-        System.out.println("Enter the department\n1) Sales\n2) Development\n3) Accounting\n0) None");
+        System.out.println("Enter the department code:\n1) Sales\n2) Development\n3) Accounting\n0) None");
 
         // Input in Java
         Scanner in = new Scanner(System.in);
@@ -48,6 +68,7 @@ public class Email {
     }
 
     // Generate random password
+
 
     // Set mailbox capacity
 
