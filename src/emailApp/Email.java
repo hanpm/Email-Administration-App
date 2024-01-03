@@ -1,5 +1,4 @@
 package emailApp;
-
 import java.util.Scanner;
 
 
@@ -12,24 +11,38 @@ public class Email {
     private String firstName;
     private String lastName;
     private String password;
+    private String email;
+    private int defaultPasswordLength = 10;
     private String department;
-    private int mailboxCapacity;
+    private int mailboxCapacity = 600;
     private String alternateEmail;
 
+    private String companySuffix = ".anycompany.com";
+
     // Write methods for our requirements
-    // Constructor to receive the firstName and lastName
+    // Constructor to receive the firstName, lastName, department, default password
     public Email(String firstName, String lastName) {
         // this keyword refers to the class level variable
         this.firstName = firstName;
         this.lastName = lastName;
-        System.out.println("Email is created: " + this.firstName + " " + this.lastName);
+        System.out.println("Creating email for: " + this.firstName + " " + this.lastName);
 
         this.department = setDepartment();
-        System.out.print("Department: " + this.department);
+//        System.out.println("Department: " + this.department);
+
+
+        this.password = setPassword(defaultPasswordLength);
+        System.out.println("Your default password: "+ this.password);
+
+        email = firstName.toLowerCase() + "." + lastName.toLowerCase()+ "@" + department + companySuffix;
+
+        System.out.println("Your email: "+ email);
+
+
     }
 
     // Set a random password method
-    private String passwordSet(int length) {
+    private String setPassword(int length) {
         String passwordSet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890@#$%&!";
         char[] password = new char[length];
 
@@ -42,9 +55,9 @@ public class Email {
 
 
         }
+        // return a string of the password
         return new String(password);
     }
-
 
     // Set the department
     // Ask for department
@@ -56,24 +69,44 @@ public class Email {
         int departmentChoice = in.nextInt();
 
         if (departmentChoice == 1) {
-            return "Sales";
+            return "sales";
         } else if (departmentChoice == 2) {
-            return "Development";
+            return "dev";
 
         } else if (departmentChoice == 3) {
-            return "Accounting";
+            return "acc";
         } else {
-            return "None";
+            return "";
         }
     }
 
-    // Generate random password
-
-
     // Set mailbox capacity
+    // This is encapsulation, where we are making it public to set some properties
+    // However, we are hiding the actual properties
+    public void setMailboxCapacity(int capacity) {
+        this.mailboxCapacity = capacity;
+    }
 
     // Set alternate email
+    public void setAlternativeEmail(String altEmail) {
+        this.alternateEmail = altEmail;
+    }
 
-    // Change passwords
+    // Set the new password
+    public void changePassword(String password) {
+        this.password = password;
+    }
+
+    // GET METHODS
+    // Instead of accessing the properties directly,
+    public int getMailboxCapacity() {
+        return mailboxCapacity;
+    }
+    public String getAlternateEmail() {
+        return alternateEmail;
+    }
+    public String getPassword() {
+        return password;
+    }
 
 }

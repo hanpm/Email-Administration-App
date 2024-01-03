@@ -6,5 +6,6 @@ public class EmailApp {
         // Create an object
         Email email1 = new Email("Han", "Pham");
 
+
     }
 }
