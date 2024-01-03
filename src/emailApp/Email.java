@@ -1,4 +1,5 @@
 package emailApp;
+import java.util.Objects;
 import java.util.Scanner;
 
 
@@ -7,6 +8,7 @@ public class Email {
     /*
     1) Create variables to store required information
     2) Private keyword to ENCAPSULATE this sensitive information
+    3) Use public methods (get/set) to update and modify the values of these private variables
     */
     private String firstName;
     private String lastName;
@@ -17,7 +19,7 @@ public class Email {
     private int mailboxCapacity = 600;
     private String alternateEmail;
 
-    private String companySuffix = ".anycompany.com";
+    private String companySuffix = "anycompany.com";
 
     // Write methods for our requirements
     // Constructor to receive the firstName, lastName, department, default password
@@ -28,18 +30,35 @@ public class Email {
         System.out.println("Creating email for: " + this.firstName + " " + this.lastName);
 
         this.department = setDepartment();
-//        System.out.println("Department: " + this.department);
+
 
 
         this.password = setPassword(defaultPasswordLength);
         System.out.println("Your default password: "+ this.password);
 
-        email = firstName.toLowerCase() + "." + lastName.toLowerCase()+ "@" + department + companySuffix;
+        // == checks for whether they are the same object
+        // .equals() checks for whether they contain the same data
+        if (!Objects.equals(department, "")) {
+            email = firstName.toLowerCase() + "." + lastName.toLowerCase()+ "@" + department + "."+ companySuffix;
+        }
+        else {
+            email = firstName.toLowerCase() + "." + lastName.toLowerCase()+ "@" + companySuffix;
+        }
 
-        System.out.println("Your email: "+ email);
 
 
     }
+
+    /*
+    The meaning of Encapsulation, is to make sure that "sensitive" data is hidden from users.
+    To achieve this, you must:
+    - declare class variables/attributes as private
+    - provide public get and set methods to access and update the value of a private variable
+     */
+
+    // SET METHODS
+    //These are the methods used in OOPS feature which helps
+    // to set the value to private attributes in a class.
 
     // Set a random password method
     private String setPassword(int length) {
@@ -60,7 +79,6 @@ public class Email {
     }
 
     // Set the department
-    // Ask for department
     private String setDepartment() {
         System.out.println("Enter the department code:\n1) Sales\n2) Development\n3) Accounting\n0) None");
 
@@ -81,8 +99,6 @@ public class Email {
     }
 
     // Set mailbox capacity
-    // This is encapsulation, where we are making it public to set some properties
-    // However, we are hiding the actual properties
     public void setMailboxCapacity(int capacity) {
         this.mailboxCapacity = capacity;
     }
@@ -94,11 +110,12 @@ public class Email {
 
     // Set the new password
     public void changePassword(String password) {
-        this.password = password;
+        this.password = setPassword(defaultPasswordLength);
     }
 
     // GET METHODS
-    // Instead of accessing the properties directly,
+    // These are the methods used in Object-Oriented Programming (OOPS)
+    // which helps to access the private attributes from a class.
     public int getMailboxCapacity() {
         return mailboxCapacity;
     }
@@ -107,6 +124,13 @@ public class Email {
     }
     public String getPassword() {
         return password;
+    }
+
+    // Show the name, email, mailbox capacity
+    public String showInfo() {
+        return "\n====== SHOW INFO ======\n" + "Display Name: " + firstName + " " + lastName + "\n" +
+                "Company email: " + email + "\n" +
+                "Mailbox Capacity: " + mailboxCapacity +"mb";
     }
 
 }
